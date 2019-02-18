@@ -2,4 +2,4 @@
 
 ## How to run:
 
-ruby game.rb
+ruby main.rb
