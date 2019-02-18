@@ -43,7 +43,3 @@ class Game
     end
   end  
 end
-
-game = Game.new
-game.setup
-game.play(game)
