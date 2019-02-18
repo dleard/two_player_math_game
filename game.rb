@@ -20,26 +20,30 @@ class Game
     p2_name = gets.chomp
     @p2 = Player.new(p2_name)
   end
+
+  def play(game)
+    loop do
+      if game.TURN == 'p1'
+        player = game.p1
+        game.TURN = 'p2'
+      else
+        game.TURN = 'p1'
+        player = game.p2
+      end  
+      turn = Turn.new
+      turn.do_turn(game, player)    
+      break if game.p1.lives == 0 || game.p2.lives == 0  
+    end  
+    if game.p1.lives == 0
+      puts "#{game.p2.name} WINS with a score of #{game.p2.lives}/3 lives left"
+      puts "GAME OVER"
+    else
+      puts "#{game.p1.name} WINS with a score of #{game.p1.lives}/3 lives left"
+      puts "GAME OVER"
+    end
+  end  
 end
 
 game = Game.new
 game.setup
-loop do
-  if game.TURN == 'p1'
-    player = game.p1
-    game.TURN = 'p2'
-  else
-    game.TURN = 'p1'
-    player = game.p2
-  end  
-  turn = Turn.new
-  turn.do_turn(game, player)    
-  break if game.p1.lives == 0 || game.p2.lives == 0  
-end  
-if game.p1.lives == 0
-  puts "#{game.p2.name} WINS with a score of #{game.p2.lives}/3 lives left"
-  puts "GAME OVER"
-else
-  puts "#{game.p1.name} WINS with a score of #{game.p1.lives}/3 lives left"
-  puts "GAME OVER"
-end
+game.play(game)
